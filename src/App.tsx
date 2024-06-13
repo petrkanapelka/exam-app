@@ -1,24 +1,24 @@
-import React from 'react';
-import logo from './logo.svg';
 import './App.css';
+import { useState } from 'react';
+import { Controller } from './components/controler/Controller';
+import { Table } from './components/table/Table';
+import { MaxNumberField } from './components/MaxNumber';
 
 function App() {
+
+  let [count, setCount] = useState(0);
+
+  let [maxNumber, setMaxNumber] = useState(5)
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Table count={count} maxNumber={maxNumber} />
+      <MaxNumberField maxNumber={maxNumber} />
+      <Controller
+        count={count}
+        setCount={setCount}
+        maxNumber={maxNumber}
+        setMaxNumber={setMaxNumber} />
     </div>
   );
 }
