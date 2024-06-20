@@ -1,24 +1,16 @@
 import './App.css';
 import { useState } from 'react';
-import { Controller } from './components/controler/Controller';
-import { Table } from './components/table/Table';
-import { MaxNumberField } from './components/MaxNumber';
+import { Counter } from './components/counter/Counter';
 
 function App() {
 
   let [count, setCount] = useState(0);
 
-  let [maxNumber, setMaxNumber] = useState(5)
+  let [maxCount, setMaxCount] = useState(5)
 
   return (
     <div className="App">
-      <Table count={count} maxNumber={maxNumber} />
-      <MaxNumberField maxNumber={maxNumber} />
-      <Controller
-        count={count}
-        setCount={setCount}
-        maxNumber={maxNumber}
-        setMaxNumber={setMaxNumber} />
+      <Counter count={count} setCount={setCount} maxCount={maxCount} setMaxCount={setMaxCount}/>
     </div>
   );
 }
