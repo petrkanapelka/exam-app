@@ -1,14 +1,13 @@
-import { useRef, useEffect } from "react";
 import { Button } from "../button/Button";
 
 type Props = {
     count: number
-    maxNumber: number
+    maxCount: number
     setCount: (value: number) => void
-    setMaxNumber: (value: number) => void
+    setMaxCount: (value: number) => void
 };
 
-export const Controller = ({ setCount, count, maxNumber, setMaxNumber }: Props) => {
+export const Controller = ({ setCount, count, maxCount, setMaxCount }: Props) => {
 
     const increment = 1
 
@@ -16,11 +15,9 @@ export const Controller = ({ setCount, count, maxNumber, setMaxNumber }: Props) 
 
     const maxRandomNumber = 10
 
-    let isIncButtonDisabled = count >= maxNumber
+    let isIncButtonDisabled = count >= maxCount
 
     let isResetButtonDisabled = count <= resetValue
-
-    const prevCountRef = useRef<number>(count);
 
     const getRandomNumber = () => {
         return Math.floor(Math.random() * maxRandomNumber) + increment;
@@ -28,19 +25,14 @@ export const Controller = ({ setCount, count, maxNumber, setMaxNumber }: Props) 
 
     const incHandler = () => {
         const newCount = count + increment;
-        setCount(newCount <= maxNumber ? newCount : count);
+        setCount(newCount <= maxCount ? newCount : count);
     }
 
 
     const resetHandler = () => {
         setCount(resetValue);
-        setMaxNumber(getRandomNumber());
+        setMaxCount(getRandomNumber());
     }
-
-    useEffect(() => {
-        prevCountRef.current = count;
-    }, [count]);
-
 
     return (
         <>
@@ -56,7 +48,6 @@ export const Controller = ({ setCount, count, maxNumber, setMaxNumber }: Props) 
                     className={isResetButtonDisabled ? 'disabled' : ''}
                     disable={isResetButtonDisabled} />
             </div>
-            <div className="prev">Previous count: {prevCountRef.current}</div>
         </>
     );
 };
