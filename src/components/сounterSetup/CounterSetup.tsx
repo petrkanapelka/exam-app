@@ -41,6 +41,9 @@ export const CounterSetup = (props: CounterSetupType) => {
         props.setMaxCount(max);
         props.setCount(min);
         props.setInputActive(false);
+        localStorage.setItem('minCount', String(min));
+        localStorage.setItem('maxCount', String(max));
+        localStorage.setItem('count', String(min));
     };
 
     const onFocusHandler = () => {
