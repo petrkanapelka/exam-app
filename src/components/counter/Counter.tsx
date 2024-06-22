@@ -8,8 +8,18 @@ type CounterType = {
     setMaxCount: (value: number) => void
     setMinCount: (value: number) => void
     inputActive: boolean
+    errorInput: boolean
 };
-export const Counter = ({ count, maxCount, setCount, setMaxCount, minCount, setMinCount, inputActive }: CounterType) => {
+export const Counter = ({
+    count,
+    maxCount,
+    setCount,
+    setMaxCount,
+    minCount,
+    setMinCount,
+    inputActive,
+    errorInput
+ }: CounterType) => {
     return (
         <div className='counter'>
             <CounterTable
@@ -17,6 +27,7 @@ export const Counter = ({ count, maxCount, setCount, setMaxCount, minCount, setM
                 maxCount={maxCount}
                 minCount={minCount}
                 inputActive={inputActive}
+                errorInput={errorInput}
             />
             <Controller
                 count={count}
