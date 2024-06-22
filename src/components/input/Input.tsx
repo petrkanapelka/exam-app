@@ -15,6 +15,7 @@ export const Input = (props: InputType) => {
                 className={props.className}
                 value={props.value}
                 disabled={props.disabled}
+                onFocus={props.onFocus}
             />
         </label>
     );
