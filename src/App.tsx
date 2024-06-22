@@ -5,17 +5,15 @@ import { CounterSetup } from './components/сounterSetup/CounterSetup';
 
 function App() {
 
-  let [minCount, setMinCount] = useState(0)
+  const initialMinCount = Number(localStorage.getItem('minCount')) || 0;
+  const initialMaxCount = Number(localStorage.getItem('maxCount')) || 5;
+  const initialCount = Number(localStorage.getItem('count')) || initialMinCount;
 
-  let [maxCount, setMaxCount] = useState(5)
-
-  let [count, setCount] = useState(minCount);
-
-  let [inputActive, setInputActive] = useState(false)
-
-  let [errorInput, setErrorInput] = useState(false)
-
-
+  let [minCount, setMinCount] = useState(initialMinCount);
+  let [maxCount, setMaxCount] = useState(initialMaxCount);
+  let [count, setCount] = useState(initialCount);
+  let [inputActive, setInputActive] = useState(false);
+  let [errorInput, setErrorInput] = useState(false);
 
   return (
     <div className="App">
@@ -28,8 +26,8 @@ function App() {
         setMaxCount={setMaxCount}
         inputActive={inputActive}
         setInputActive={setInputActive}
-        setErrorInput = {setErrorInput}
-        errorInput = {errorInput}
+        setErrorInput={setErrorInput}
+        errorInput={errorInput}
       />
       <Counter
         count={count}
