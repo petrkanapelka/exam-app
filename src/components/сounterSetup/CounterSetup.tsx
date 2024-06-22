@@ -74,8 +74,8 @@ export const CounterSetup = (props: CounterSetupType) => {
                 type='submit'
                 title="set"
                 onClick={submitButtonHandler}
-                disable={props.errorInput}
-                className={props.errorInput ? 'disabled' : ''}
+                disable={props.errorInput || !props.inputActive}
+                className={props.errorInput || !props.inputActive ? 'disabled' : ''}
             />
         </form>
     );
