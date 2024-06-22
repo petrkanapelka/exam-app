@@ -12,7 +12,7 @@
   gap: 50px;
 }
 
-.counter{
+.counter {
   text-align: center;
   width: 300px;
   height: 400px;
@@ -111,7 +111,7 @@ input {
 
 .error-message {
   position: absolute;
-  top:15%;
+  top: 15%;
   color: red;
   font-weight: bold;
 }
@@ -122,7 +122,12 @@ input {
   font-weight: bold;
 }
 
-span {
+.active-span {
+  font-size: 30px;
+  color: rgb(9, 255, 0);
+}
+
+.error-span {
   font-size: 30px;
   color: red;
 }
