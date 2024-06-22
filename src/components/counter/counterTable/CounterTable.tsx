@@ -3,8 +3,9 @@ type CountertableType = {
     maxCount: number
     minCount: number
     inputActive: boolean
+    errorInput: boolean
 };
-export const CounterTable = ({ count, minCount, maxCount, inputActive }: CountertableType) => {
+export const CounterTable = ({ count, minCount, maxCount, inputActive, errorInput }: CountertableType) => {
 
     const fullWidth = 100;
 
@@ -13,7 +14,9 @@ export const CounterTable = ({ count, minCount, maxCount, inputActive }: Counter
             <div className={`table ${count === maxCount ? 'max' : ''}`}>
                 {!inputActive ?
                     count :
-                    <span>Press set button</span>}
+                    <span className={!errorInput ? 'active-span' : 'error-span'}>
+                        {errorInput ? 'incorrect input' : 'press set button'}
+                    </span>}
             </div>
             <div className="line" style={{ width: `${(count - minCount) * (fullWidth / (maxCount - minCount))}%` }}></div>
         </div>
