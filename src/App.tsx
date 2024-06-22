@@ -13,6 +13,8 @@ function App() {
 
   let [inputActive, setInputActive] = useState(false)
 
+  let [errorInput, setErrorInput] = useState(false)
+
 
 
   return (
@@ -26,6 +28,8 @@ function App() {
         setMaxCount={setMaxCount}
         inputActive={inputActive}
         setInputActive={setInputActive}
+        setErrorInput = {setErrorInput}
+        errorInput = {errorInput}
       />
       <Counter
         count={count}
@@ -35,6 +39,7 @@ function App() {
         maxCount={maxCount}
         setMaxCount={setMaxCount}
         inputActive={inputActive}
+        errorInput={errorInput}
       />
     </div>
   );
