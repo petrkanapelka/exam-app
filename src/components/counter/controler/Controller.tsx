@@ -1,4 +1,5 @@
 import { Button } from "../../button/Button";
+import { store } from "../../modules/store/Store";
 
 type ControllerType = {
     count: number
@@ -9,15 +10,6 @@ type ControllerType = {
 };
 
 export const Controller = ({ setCount, count, maxCount, setMaxCount, minCount }: ControllerType) => {
-
-
-    // const resetValue = 0
-
-    // const maxRandomNumber = 10
-
-    // const getRandomNumber = () => {
-    //     return Math.floor(Math.random() * maxRandomNumber) + increment;
-    // }
 
     const increment = 1
 
@@ -34,7 +26,7 @@ export const Controller = ({ setCount, count, maxCount, setMaxCount, minCount }:
 
     const resetHandler = () => {
         setCount(minCount);
-        // setMaxCount(getRandomNumber());
+        store.dispatch({ type: 'count/reset' })
     }
 
     return (
