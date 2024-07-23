@@ -1,32 +1,31 @@
+import { useDispatch, useSelector } from "react-redux";
 import { Button } from "../../button/Button";
-import { store } from "../../modules/store/Store";
+import { incrementCountAC, resetCountAC } from "../../modules/reducer/reducer";
+import React from "react";
+import { selectCount, selectInputIsActive, selectMaxCount, selectMinCount } from "../../modules/selectors/selectors";
+import { AppDispatch } from "../../modules/store/store";
 
-type ControllerType = {
-    count: number
-    minCount: number
-    maxCount: number
-    setCount: (value: number) => void
-    setMaxCount: (value: number) => void
-};
+export const Controller = React.memo(() => {
 
-export const Controller = ({ setCount, count, maxCount, setMaxCount, minCount }: ControllerType) => {
+    const count = useSelector(selectCount);
+    const maxCount = useSelector(selectMaxCount);
+    const minCount = useSelector(selectMinCount);
+    const inputIsActive = useSelector(selectInputIsActive);
 
-    const increment = 1
+
+    const dispatch: AppDispatch = useDispatch();
+
 
     let isIncButtonDisabled = count >= maxCount
 
     let isResetButtonDisabled = count <= minCount
 
-
     const incHandler = () => {
-        const newCount = count + increment;
-        setCount(newCount <= maxCount ? newCount : count);
+        dispatch(incrementCountAC())
     }
 
-
     const resetHandler = () => {
-        setCount(minCount);
-        store.dispatch({ type: 'count/reset' })
+        dispatch(resetCountAC())
     }
 
     return (
@@ -35,14 +34,14 @@ export const Controller = ({ setCount, count, maxCount, setMaxCount, minCount }:
                 <Button
                     title="inc"
                     onClick={incHandler}
-                    disable={isIncButtonDisabled}
-                    className={isIncButtonDisabled ? 'disabled' : ''} />
+                    disable={isIncButtonDisabled || inputIsActive}
+                    className={isIncButtonDisabled || inputIsActive ? 'disabled' : ''} />
                 <Button
                     title="reset"
                     onClick={resetHandler}
-                    className={isResetButtonDisabled ? 'disabled' : ''}
-                    disable={isResetButtonDisabled} />
+                    className={isResetButtonDisabled || inputIsActive ? 'disabled' : ''}
+                    disable={isResetButtonDisabled || inputIsActive} />
             </div>
         </>
     );
-};
+});
