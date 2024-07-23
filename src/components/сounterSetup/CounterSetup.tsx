@@ -18,6 +18,7 @@ export const CounterSetup = React.memo(() => {
 
     const onChangeMinCountHandler = (e: ChangeEvent<HTMLInputElement>) => {
         dispatch(setMinCountAC(+e.currentTarget.value))
+        dispatch(resetCountAC())
         dispatch(setInputActiveAC(true))
         dispatch(setInputErrorAC())
     };
