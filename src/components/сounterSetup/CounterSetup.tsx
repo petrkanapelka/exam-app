@@ -1,75 +1,63 @@
-import { ChangeEvent, MouseEvent, useState } from "react";
+import React, { ChangeEvent, MouseEvent } from "react";
 import { Button } from "../button/Button";
 import { Input } from "../input/Input";
+import { useDispatch, useSelector } from "react-redux";
+import { AppDispatch } from "../modules/store/store";
+import { resetCountAC, setInputActiveAC, setInputErrorAC, setMaxCountAC, setMinCountAC } from "../modules/reducer/reducer";
+import { selectInputIsActive, selectInputIsError, selectMaxCount, selectMinCount } from "../modules/selectors/selectors";
 
-type CounterSetupType = {
-    count: number;
-    minCount: number;
-    maxCount: number;
-    setCount: (value: number) => void;
-    setMaxCount: (value: number) => void;
-    setMinCount: (value: number) => void;
-    inputActive: boolean;
-    setInputActive: (value: boolean) => void;
-    setErrorInput: (value: boolean) => void;
-    errorInput: boolean
-};
 
-export const CounterSetup = (props: CounterSetupType) => {
-    let [min, setMin] = useState(props.minCount);
-    let [max, setMax] = useState(props.maxCount);
+export const CounterSetup = React.memo(() => {
+
+    const maxCount = useSelector(selectMaxCount);
+    const minCount = useSelector(selectMinCount);
+    const inputIsActive = useSelector(selectInputIsActive);
+    const inputIsError = useSelector(selectInputIsError);
+
+    const dispatch: AppDispatch = useDispatch();
 
     const onChangeMinCountHandler = (e: ChangeEvent<HTMLInputElement>) => {
-        const newMin = +e.currentTarget.value;
-        setMin(newMin);
-        props.setInputActive(true);
-        const isCorrectInput = (max > newMin) && (max > 0) && (newMin >= 0);
-        props.setErrorInput(!isCorrectInput);
+        dispatch(setMinCountAC(+e.currentTarget.value))
+        dispatch(setInputActiveAC(true))
+        dispatch(setInputErrorAC())
     };
 
     const onChangeMaxCountHandler = (e: ChangeEvent<HTMLInputElement>) => {
-        const newMax = +e.currentTarget.value;
-        setMax(newMax);
-        props.setInputActive(true);
-        const isCorrectInput = (newMax > min) && (newMax > 0) && (min >= 0);
-        props.setErrorInput(!isCorrectInput);
+        dispatch(setMaxCountAC(+e.currentTarget.value))
+        dispatch(setInputActiveAC(true))
+        dispatch(setInputErrorAC())
     };
 
     const submitButtonHandler = (e: MouseEvent<HTMLButtonElement>) => {
         e.preventDefault();
-        props.setMinCount(min);
-        props.setMaxCount(max);
-        props.setCount(min);
-        props.setInputActive(false);
-        localStorage.setItem('minCount', String(min));
-        localStorage.setItem('maxCount', String(max));
-        localStorage.setItem('count', String(min));
+        dispatch(setInputActiveAC(false))
+        dispatch(resetCountAC())
     };
 
     const onFocusHandler = () => {
-        props.setInputActive(true);
+        dispatch(setInputActiveAC(true))
     };
 
     return (
         <form className='counter'>
             <div className={`table table-setting`}>
-                {props.errorInput && <div className="error-message">incorrect input</div>}
+                {inputIsError && <div className="error-message">incorrect input</div>}
                 <Input
-                    className={props.errorInput ? 'error-input' : ''}
+                    className={inputIsError ? 'error-input' : ''}
                     labelText="max value:"
                     type='number'
-                    placeholder={`${props.maxCount}`}
+                    placeholder={`${maxCount}`}
                     onChange={onChangeMaxCountHandler}
-                    value={max}
+                    value={maxCount}
                     onFocus={onFocusHandler}
                 />
                 <Input
-                    className={props.errorInput ? 'error-input' : ''}
+                    className={inputIsError ? 'error-input' : ''}
                     labelText="min value:"
                     type='number'
-                    placeholder={`${props.minCount}`}
+                    placeholder={`${minCount}`}
                     onChange={onChangeMinCountHandler}
-                    value={min}
+                    value={minCount}
                     onFocus={onFocusHandler}
                 />
             </div>
@@ -77,9 +65,9 @@ export const CounterSetup = (props: CounterSetupType) => {
                 type='submit'
                 title="set"
                 onClick={submitButtonHandler}
-                disable={props.errorInput || !props.inputActive}
-                className={props.errorInput || !props.inputActive ? 'disabled' : ''}
+                disable={inputIsError || !inputIsActive}
+                className={inputIsError || !inputIsActive ? 'disabled' : ''}
             />
         </form>
     );
-};
+});
