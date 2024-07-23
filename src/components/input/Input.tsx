@@ -1,10 +1,11 @@
+import React from "react";
 import { InputHTMLAttributes } from "react";
 
 type InputType = InputHTMLAttributes<HTMLInputElement> & {
     labelText: string;
 }
 
-export const Input = (props: InputType) => {
+export const Input = React.memo((props: InputType) => {
     return (
         <label>
             {props.labelText}
@@ -19,4 +20,4 @@ export const Input = (props: InputType) => {
             />
         </label>
     );
-};
+});
