@@ -16,27 +16,30 @@ export const CounterSetup = React.memo(() => {
 
     const dispatch: AppDispatch = useDispatch();
 
-    const onChangeMinCountHandler = (e: ChangeEvent<HTMLInputElement>) => {
-        dispatch(setMinCountAC(+e.currentTarget.value))
+    const initializeCounterSetup = () => {
         dispatch(resetCountAC())
         dispatch(setInputActiveAC(true))
         dispatch(setInputErrorAC())
+    }
+
+    const onChangeMinCountHandler = (e: ChangeEvent<HTMLInputElement>) => {
+        dispatch(setMinCountAC(+e.currentTarget.value))
+        initializeCounterSetup()
     };
 
     const onChangeMaxCountHandler = (e: ChangeEvent<HTMLInputElement>) => {
         dispatch(setMaxCountAC(+e.currentTarget.value))
-        dispatch(setInputActiveAC(true))
-        dispatch(setInputErrorAC())
+        initializeCounterSetup()
     };
 
     const submitButtonHandler = (e: MouseEvent<HTMLButtonElement>) => {
         e.preventDefault();
         dispatch(setInputActiveAC(false))
-        dispatch(resetCountAC())
     };
 
     const onFocusHandler = () => {
         dispatch(setInputActiveAC(true))
+        dispatch(resetCountAC())
     };
 
     return (
