@@ -1,4 +1,4 @@
-import React, { ChangeEvent, MouseEvent } from "react";
+import React, { ChangeEvent, MouseEvent, useCallback } from "react";
 import { Button } from "../button/Button";
 import { Input } from "../input/Input";
 import { useDispatch, useSelector } from "react-redux";
@@ -16,31 +16,31 @@ export const CounterSetup = React.memo(() => {
 
     const dispatch: AppDispatch = useDispatch();
 
-    const initializeCounterSetup = () => {
+    const initializeCounterSetup = useCallback(() => {
         dispatch(resetCountAC())
         dispatch(setInputActiveAC(true))
         dispatch(setInputErrorAC())
-    }
+    }, [dispatch])
 
-    const onChangeMinCountHandler = (e: ChangeEvent<HTMLInputElement>) => {
+    const onChangeMinCountHandler = useCallback((e: ChangeEvent<HTMLInputElement>) => {
         dispatch(setMinCountAC(+e.currentTarget.value))
         initializeCounterSetup()
-    };
+    }, [dispatch, initializeCounterSetup]);
 
-    const onChangeMaxCountHandler = (e: ChangeEvent<HTMLInputElement>) => {
+    const onChangeMaxCountHandler = useCallback((e: ChangeEvent<HTMLInputElement>) => {
         dispatch(setMaxCountAC(+e.currentTarget.value))
         initializeCounterSetup()
-    };
+    }, [dispatch, initializeCounterSetup]);
 
-    const submitButtonHandler = (e: MouseEvent<HTMLButtonElement>) => {
+    const submitButtonHandler = useCallback((e: MouseEvent<HTMLButtonElement>) => {
         e.preventDefault();
         dispatch(setInputActiveAC(false))
-    };
+    }, [dispatch]);
 
-    const onFocusHandler = () => {
+    const onFocusHandler = useCallback(() => {
         dispatch(setInputActiveAC(true))
         dispatch(resetCountAC())
-    };
+    }, [dispatch]);
 
     return (
         <form className='counter'>
