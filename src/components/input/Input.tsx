@@ -6,6 +6,7 @@ type InputType = InputHTMLAttributes<HTMLInputElement> & {
 }
 
 export const Input = React.memo((props: InputType) => {
+    console.log('Input called')
     return (
         <label>
             {props.labelText}
