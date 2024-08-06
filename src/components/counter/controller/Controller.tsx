@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from "react-redux";
 import { Button } from "../../button/Button";
 import { incrementCountAC, resetCountAC } from "../../modules/reducer/reducer";
-import React from "react";
+import React, { useCallback } from "react";
 import { selectCount, selectInputIsActive, selectMaxCount, selectMinCount } from "../../modules/selectors/selectors";
 import { AppDispatch } from "../../modules/store/store";
 
@@ -20,13 +20,13 @@ export const Controller = React.memo(() => {
 
     let isResetButtonDisabled = count <= minCount
 
-    const incHandler = () => {
+    const incHandler = useCallback(() => {
         dispatch(incrementCountAC())
-    }
+    }, [dispatch])
 
-    const resetHandler = () => {
+    const resetHandler = useCallback(() => {
         dispatch(resetCountAC())
-    }
+    }, [dispatch])
 
     return (
         <>
