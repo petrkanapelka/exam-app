@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import { useSelector } from 'react-redux';
 import { selectCount, selectMaxCount, selectMinCount, selectInputIsActive, selectInputIsError } from '../../modules/selectors/selectors';
 
 export const CounterTable: React.FC = React.memo(() => {
+    console.log('CounterTable called')
     const count = useSelector(selectCount);
     const maxCount = useSelector(selectMaxCount);
     const minCount = useSelector(selectMinCount);
@@ -11,7 +12,9 @@ export const CounterTable: React.FC = React.memo(() => {
 
 
     const fullWidth = 100;
-    const progressWidth = (count - minCount) * (fullWidth / (maxCount - minCount));
+    const progressWidth = useMemo(() => {
+        return (count - minCount) * (fullWidth / (maxCount - minCount))
+    }, [count, maxCount, minCount]);
 
     return (
         <div className="table-container">
