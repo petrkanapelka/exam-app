@@ -1,5 +1,5 @@
 import React from 'react';
-import { Controller } from './controler/Controller';
+import { Controller } from './controller/Controller';
 import { CounterTable } from './counterTable/CounterTable';
 
 export const Counter = React.memo(() => {
